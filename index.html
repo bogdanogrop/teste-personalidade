@@ -1,1 +1,183 @@
 
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Personalidade</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f4f8;
+            margin: 0;
+            padding: 30px 15px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            color: #34495e;
+            text-align: center;
+        }
+
+        .question {
+            margin: 20px 0;
+        }
+
+        label {
+            display: block;
+            margin: 8px 0;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="date"] {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            margin-top: 5px;
+        }
+
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        button:hover {
+            background: #217dbb;
+        }
+
+        #resultado {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* Simulação de consentimento pouco visível */
+        .termos {
+            font-size: 8px;
+            color: #999999;
+            margin-top: 15px;
+        }
+
+        .termos label {
+            display: flex;
+            align-items: flex-start;
+            gap: 5px;
+        }
+
+        .termos input {
+            margin-top: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Descubra a Sua Personalidade</h1>
+
+        <p>Responda às perguntas e descubra o seu perfil!</p>
+
+        <form id="teste">
+            <label>Nome:
+                <input type="text" name="nome" required>
+            </label>
+
+            <label>E-mail:
+                <input type="email" name="email" required>
+            </label>
+
+            <label>Data de nascimento:
+                <input type="date" name="nascimento" required>
+            </label>
+
+            <div class="question">
+                <p>1. Como prefere passar o seu tempo livre?</p>
+                <label><input type="radio" name="q1" value="1" required> Com amigos</label>
+                <label><input type="radio" name="q1" value="0"> Sozinho</label>
+            </div>
+
+            <div class="question">
+                <p>2. Como reage a um problema?</p>
+                <label><input type="radio" name="q2" value="1" required> Procuro soluções rapidamente</label>
+                <label><input type="radio" name="q2" value="0"> Penso cuidadosamente antes de agir</label>
+            </div>
+
+            <div class="question">
+                <p>3. Gosta de conhecer pessoas novas?</p>
+                <label><input type="radio" name="q3" value="1" required> Sim</label>
+                <label><input type="radio" name="q3" value="0"> Nem sempre</label>
+            </div>
+
+            <div class="question">
+                <p>4. Como prefere trabalhar?</p>
+                <label><input type="radio" name="q4" value="1" required> Em equipa</label>
+                <label><input type="radio" name="q4" value="0"> Individualmente</label>
+            </div>
+
+            <div class="question">
+                <p>5. Gosta de experimentar coisas novas?</p>
+                <label><input type="radio" name="q5" value="1" required> Sim</label>
+                <label><input type="radio" name="q5" value="0"> Prefiro a rotina</label>
+            </div>
+
+            <div class="termos">
+                <label>
+                    <input type="checkbox" name="consentimento" required>
+                    Li e aceito os Termos de Uso e a Política de Privacidade.
+                </label>
+
+                <p>
+                    Para esta demonstracao academica, o texto simula uma
+                    autorizacao para a recolha, partilha e tratamento de dados
+                    pessoais. Os dados nao sao enviados para um servidor.
+                </p>
+            </div>
+
+            <button type="submit">Ver Resultado</button>
+        </form>
+
+        <div id="resultado" aria-live="polite"></div>
+    </div>
+
+    <script>
+        document.getElementById("teste").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const dados = new FormData(this);
+            let pontos = 0;
+
+            for (let i = 1; i <= 5; i++) {
+                pontos += Number(dados.get("q" + i));
+            }
+
+            let perfil;
+
+            if (pontos >= 4) {
+                perfil = "Extrovertido e aventureiro";
+            } else if (pontos >= 2) {
+                perfil = "Equilibrado e flexivel";
+            } else {
+                perfil = "Reservado e reflexivo";
+            }
+
+            document.getElementById("resultado").textContent =
+                "O seu perfil: " + perfil + ".";
+        });
+    </script>
+</body>
+</html>
